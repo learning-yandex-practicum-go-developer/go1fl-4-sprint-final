@@ -26,6 +26,10 @@ func parsePackage(data string) (int, time.Duration, error) {
 	if err != nil {
 		return 0, 0, err
 	}
+	if step == 0 { // check quantity step
+		err := errors.New("[ERROR] Quantity step 0")
+		return 0, 0, err
+	}
 
 	t, err := time.ParseDuration(parts[1]) // parse time duration input in type time.Duration
 	if err != nil {
