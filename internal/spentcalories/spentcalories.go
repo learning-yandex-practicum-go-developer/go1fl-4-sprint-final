@@ -58,7 +58,6 @@ func TrainingInfo(data string, weight, height float64) (string, error) {
 }
 
 func RunningSpentCalories(steps int, weight, height float64, duration time.Duration) (float64, error) {
-	// TODO: реализовать функцию
 	if steps <= 0 {
 		return 0, errors.New("steps must be positive")
 	}
