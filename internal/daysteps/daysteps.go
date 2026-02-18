@@ -61,7 +61,7 @@ func DayActionInfo(data string, weight, height float64) string {
 
 	durationStep := float64(step) * stepLength
 	distance := durationStep / mInKm
-	calories := internal.WalkingSpentCalories() // TODO reaization function
+	calories := internal.WalkingSpentCalories(steps, weight, height, timeDuration)
 
 	return fmt.Sprintf("Количество шагов: %d.\nДистанция составила %.2f км.\nВы сожгли %.2f ккал.", step, durationStep, calories)
 }
