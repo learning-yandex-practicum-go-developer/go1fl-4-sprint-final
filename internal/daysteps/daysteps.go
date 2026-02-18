@@ -17,25 +17,26 @@ const (
 )
 
 func parsePackage(data string) (int, time.Duration, error) {
+	if data == "" {
+        return 0, 0, errors.New("invalid training data format")
+    }
+
 	parts := strings.Split(data, ",")
 	if len(parts) != 2 {
 		return 0, 0, errors.New("invalid training data format")
 	}
 
 	steps, err := strconv.Atoi(parts[0])
-	if err != nil {
-		return 0, 0, err
-	}
-	if steps <= 0 {
-		return 0, 0, errors.New("steps must be positive")
-	}
+    if err != nil || steps <= 0 {
+        return 0, 0, errors.New("steps must be positive")
+    }
 
-	dur, err := time.ParseDuration(parts[1])
-	if err != nil {
-		return 0, 0, err
-	}
+	duration, err := time.ParseDuration(parts[1])
+    if err != nil || duration <= 0 {
+        return 0, 0, errors.New("duration must be positive")
+    }
 
-	return steps, dur, nil
+	return steps, duration, nil
 }
 
 // DayActionInfo parses input data about steps and duration, calculates the distance in kilometers
