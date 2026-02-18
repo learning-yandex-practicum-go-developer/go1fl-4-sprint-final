@@ -22,12 +22,12 @@ func parseTraining(data string) (int, string, time.Duration, error) {
 		return 0, parts[1], 0, errors.New("invalid training data format")
 	}
 
-	step, err := strconv.Atoi(parts[0])
+	steps, err := strconv.Atoi(parts[0])
 	if err != nil {
 		return 0, parts[1], 0, err
 	}
-	if step <= 0 {
-		return 0, parts[1], 0, errors.New("step must be positive")
+	if steps <= 0 {
+		return 0, parts[1], 0, errors.New("steps must be positive")
 	}
 
 	dur, err := time.ParseDuration(parts[2])
@@ -35,7 +35,7 @@ func parseTraining(data string) (int, string, time.Duration, error) {
 		return 0, parts[1], 0, err
 	}
 
-	return step, parts[1], dur, nil
+	return steps, parts[1], dur, nil
 }
 
 func distance(steps int, height float64) float64 {
