@@ -51,16 +51,16 @@ func parsePackage(data string) (int, time.Duration, error) {
 //            "Количество шагов: 792.\nДистанция составила 0.51 км.\nВы сожгли 221.33 ккал."
 func DayActionInfo(data string, weight, height float64) string {
 	steps, timeDuration, err := parsePackage(data)
-	if err != nil {
-		return err.Error() + "\n"
-	}
+	if err != nil || steps <= 0 || timeDuration <= 0 {
+        return ""
+    }
 
 	durationStep := float64(steps) * stepLength
 	distance := durationStep / mInKm
 	calories, err := spentcalories.WalkingSpentCalories(steps, weight, height, timeDuration)
 	if err != nil {
-		return err.Error() + "\n"
-	}
+        return ""
+    }
 
 	return fmt.Sprintf("Количество шагов: %d.\nДистанция составила %.2f км.\nВы сожгли %.2f ккал.\n", steps, distance, calories)
 }
