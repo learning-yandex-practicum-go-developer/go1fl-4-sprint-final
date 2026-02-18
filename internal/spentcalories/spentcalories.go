@@ -98,7 +98,8 @@ func TrainingInfo(data string, weight, height float64) (string, error) {
 		return "Error", err
 	}
 
-	speed := meanSpeed(steps, height, duration)
+	distance := distance(steps, height)
+	speed := distance / duration.Hours()
 
 	switch activity {
 	case "Ходьба":
@@ -116,13 +117,13 @@ func TrainingInfo(data string, weight, height float64) (string, error) {
 
 	return fmt.Sprintf(
 		"Тип тренировки: %s\n" +
-			"Длительность: %.f2 ч.\n" +
-			"Дистанция: %.f2 км.\n" +
-			"Скорость: %.f2 км/ч\n" +
-			"Сожгли калорий: %.f2\n",
+			"Длительность: %.2f ч.\n" +
+			"Дистанция: %.2f км.\n" +
+			"Скорость: %.2f км/ч\n" +
+			"Сожгли калорий: %.2f\n",
 		activity,
 		duration.Hours(),
-		distance(steps, height),
+		distance,
 		speed,
 		calories,
 	), nil
