@@ -29,11 +29,8 @@ func parseTraining(data string) (int, string, time.Duration, error) {
 	}
 
 	steps, err := strconv.Atoi(parts[0])
-	if err != nil {
+	if err != nil || steps <= 0 {
 		return 0, parts[1], 0, err
-	}
-	if steps <= 0 {
-		return 0, parts[1], 0, errors.New("steps must be positive")
 	}
 
 	dur, err := time.ParseDuration(parts[2])
