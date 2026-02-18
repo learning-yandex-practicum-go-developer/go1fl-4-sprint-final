@@ -17,25 +17,25 @@ const (
 )
 
 func parseTraining(data string) (int, string, time.Duration, error) {
-	parts := strings.Split(data, ",") // parsed input string
-	if len(parts) != 3 { // check len parts
-		return 0, parts[1], 0, errors.New("len parts parsed from data less 3")
+	parts := strings.Split(data, ",")
+	if len(parts) != 3 {
+		return 0, parts[1], 0, errors.New("invalid training data format")
 	}
 
-	step, err := strconv.Atoi(parts[0]) // convert step in int
+	step, err := strconv.Atoi(parts[0])
 	if err != nil {
 		return 0, parts[1], 0, err
 	}
-	if step <= 0 { // check quantity step
-		return 0, parts[1], 0, errors.New("quantity step less 0")
+	if step <= 0 {
+		return 0, parts[1], 0, errors.New("step must be positive")
 	}
 
-	t, err := time.ParseDuration(parts[2]) // parse time duration input in type time.Duration
+	dur, err := time.ParseDuration(parts[2])
 	if err != nil {
 		return 0, parts[1], 0, err
 	}
 
-	return step, parts[1], t, nil
+	return step, parts[1], dur, nil
 }
 
 func distance(steps int, height float64) float64 {
