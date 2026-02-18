@@ -21,7 +21,11 @@ const (
 func parseTraining(data string) (int, string, time.Duration, error) {
 	parts := strings.Split(data, ",")
 	if len(parts) != 3 {
-		return 0, "", 0, errors.New("invalid training data format")
+		activity := ""
+		if len(parts) > 1 {
+			activity = parts[1]
+		}
+		return 0, activity, 0, errors.New("invalid training data format")
 	}
 
 	steps, err := strconv.Atoi(parts[0])
