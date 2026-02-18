@@ -38,7 +38,7 @@ func parsePackage(data string) (int, time.Duration, error) {
 	return step, t, nil
 }
 
-// TODO add doc for export functions
+// DayActionInfo parses input data, calculates distance in kilometers and burned calories, and returns formatted result string.
 func DayActionInfo(data string, weight, height float64) string {
 	step, timeDuration, err := parsePackage(data) // get result call function parsePackage with param data
 	if err != nil {
