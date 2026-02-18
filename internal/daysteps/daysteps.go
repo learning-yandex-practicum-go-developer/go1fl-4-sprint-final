@@ -38,7 +38,17 @@ func parsePackage(data string) (int, time.Duration, error) {
 	return steps, dur, nil
 }
 
-// DayActionInfo parses input data, calculates distance in kilometers and burned calories, and returns formatted result string.
+// DayActionInfo parses input data about steps and duration, calculates the distance in kilometers
+// and the calories burned, and returns a formatted result string.
+//
+// Parameters:
+//   data string    — input string containing the number of steps and walking duration (e.g., "10000,0h50m")
+//   weight float64 — user's weight in kilograms
+//   height float64 — user's height in meters
+//
+// Returns:
+//   string — formatted string with step count, distance in km, and calories burned, e.g.:
+//            "Количество шагов: 792.\nДистанция составила 0.51 км.\nВы сожгли 221.33 ккал."
 func DayActionInfo(data string, weight, height float64) string {
 	step, timeDuration, err := parsePackage(data)
 	if err != nil {
