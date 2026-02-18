@@ -17,35 +17,35 @@ const (
 )
 
 func parsePackage(data string) (int, time.Duration, error) {
-	parts := strings.Split(data, ",") // parsed input string
-	if len(parts) != 2 { // check len parts
+	parts := strings.Split(data, ",")
+	if len(parts) != 2 {
 		return 0, 0, errors.New("len parts parsed from data less 2")
 	}
 
-	step, err := strconv.Atoi(parts[0]) // convert step in int
+	step, err := strconv.Atoi(parts[0])
 	if err != nil {
 		return 0, 0, err
 	}
-	if step <= 0 { // check quantity step
+	if step <= 0 {
 		return 0, 0, errors.New("quantity step less 0")
 	}
 
-	t, err := time.ParseDuration(parts[1]) // parse time duration input in type time.Duration
+	dur, err := time.ParseDuration(parts[1])
 	if err != nil {
 		return 0, 0, err
 	}
 
-	return step, t, nil
+	return step, dur, nil
 }
 
 // DayActionInfo parses input data, calculates distance in kilometers and burned calories, and returns formatted result string.
 func DayActionInfo(data string, weight, height float64) string {
-	step, timeDuration, err := parsePackage(data) // get result call function parsePackage with param data
+	step, timeDuration, err := parsePackage(data)
 	if err != nil {
-		fmt.Println(err) // output error in terminal
+		fmt.Println(err)
 		return ""
 	}
-	if step <= 0 { // check quantity step
+	if step <= 0 {
 		return ""
 	}
 
