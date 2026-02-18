@@ -30,14 +30,12 @@ func parseTraining(data string) (int, string, time.Duration, error) {
 		return 0, parts[1], 0, errors.New("quantity step less 0")
 	}
 
-	
-
 	t, err := time.ParseDuration(parts[2]) // parse time duration input in type time.Duration
 	if err != nil {
 		return 0, parts[1], 0, err
 	}
 
-	return step, typeActivity, t, nil
+	return step, parts[1], t, nil
 }
 
 func distance(steps int, height float64) float64 {
