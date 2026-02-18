@@ -1,6 +1,8 @@
 package spentcalories
 
 import (
+	"fmt"
+	"log"
 	"time"
 	"strings"
 	"errors"
@@ -54,7 +56,43 @@ func meanSpeed(steps int, height float64, duration time.Duration) float64 {
 }
 
 func TrainingInfo(data string, weight, height float64) (string, error) {
-	// TODO: реализовать функцию
+	var calories float64
+	var errCal error
+
+	steps, activity, duration, err := parseTraining(data)
+	if err != nil {
+		log.Println(err)
+		return "Error", err
+	}
+
+	speed := meanSpeed(steps, height, duration)
+
+	switch activity {
+	case "Ходьба":
+		calories, errCal = WalkingSpentCalories(steps, weight, height, duration)
+	case "Бег":
+		calories, errCal = RunningSpentCalories(steps, weight, height, duration)
+	default:
+		return "Error", errors.New("неизвестный тип тренировки")
+	}
+
+	if errCal != nil {
+		log.Println(errCal)
+		return "Error", errCal
+	}
+
+	return fmt.Sprintf(
+		"Тип тренировки: %s\n" +
+			"Длительность: %.f2 ч.\n" +
+			"Дистанция: %.f2 км.\n" +
+			"Скорость: %.f2 км/ч\n" +
+			"Сожгли калорий: %.f2\n",
+		activity,
+		duration.Hours(),
+		distance(steps, height),
+		speed,
+		calories,
+	), nil
 }
 
 // RunningSpentCalories calculates calories burned during running.
