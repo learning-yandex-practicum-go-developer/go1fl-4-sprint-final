@@ -88,6 +88,17 @@ func RunningSpentCalories(steps int, weight, height float64, duration time.Durat
 	return (weight * meanSpeed(steps, height, duration) * duration.Minutes()) / minInH, nil
 }
 
+// WalkingSpentCalories calculates the number of calories burned during walking.
+//
+// Parameters:
+//   steps int       — number of steps taken
+//   weight float64  — user's weight in kilograms
+//   height float64  — user's height in meters
+//   duration time.Duration — duration of the walk
+//
+// Returns:
+//   float64 — calories burned during the walk
+//   error   — non-nil if input parameters are invalid (e.g., non-positive steps, weight, height, or duration)
 func WalkingSpentCalories(steps int, weight, height float64, duration time.Duration) (float64, error) {
 	if steps <= 0 {
 		return 0, errors.New("steps must be positive")
