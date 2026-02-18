@@ -19,15 +19,15 @@ const (
 func parsePackage(data string) (int, time.Duration, error) {
 	parts := strings.Split(data, ",")
 	if len(parts) != 2 {
-		return 0, 0, errors.New("len parts parsed from data less 2")
+		return 0, 0, errors.New("invalid training data format")
 	}
 
-	step, err := strconv.Atoi(parts[0])
+	steps, err := strconv.Atoi(parts[0])
 	if err != nil {
 		return 0, 0, err
 	}
-	if step <= 0 {
-		return 0, 0, errors.New("quantity step less 0")
+	if steps <= 0 {
+		return 0, 0, errors.New("steps must be positive")
 	}
 
 	dur, err := time.ParseDuration(parts[1])
@@ -35,7 +35,7 @@ func parsePackage(data string) (int, time.Duration, error) {
 		return 0, 0, err
 	}
 
-	return step, dur, nil
+	return steps, dur, nil
 }
 
 // DayActionInfo parses input data, calculates distance in kilometers and burned calories, and returns formatted result string.
