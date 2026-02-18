@@ -85,7 +85,7 @@ func RunningSpentCalories(steps int, weight, height float64, duration time.Durat
 		return 0, errors.New("duration must be positive")
 	}
 
-	return weight * meanSpeed(steps, height, duration) * minInH, nil
+	return (weight * meanSpeed(steps, height, duration) * duration.Minutes()) / minInH, nil
 }
 
 func WalkingSpentCalories(steps int, weight, height float64, duration time.Duration) (float64, error) {
