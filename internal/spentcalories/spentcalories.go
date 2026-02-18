@@ -55,6 +55,32 @@ func meanSpeed(steps int, height float64, duration time.Duration) float64 {
 	return distance(steps, height) / duration.Hours()
 }
 
+// TrainingInfo parses the input data string, calculates distance, average speed,
+// and calories burned for the specified activity, and returns a formatted result string.
+//
+// Parameters:
+//   data string      — input string in the format "3456,Ходьба,3h00m",
+//                      containing the number of steps, activity type, and duration
+//   weight float64   — user's weight in kilograms
+//   height float64   — user's height in meters
+//
+// Returns:
+//   string — formatted string with workout information, e.g.:
+//
+//      Тип тренировки: Бег
+//      Длительность: 0.75 ч.
+//      Дистанция: 10.00 км.
+//      Скорость: 13.34 км/ч
+//      Сожгли калорий: 18621.75
+//
+//   error  — non-nil if input parsing fails or if an unknown activity type is provided
+//
+// Behavior:
+//   - Calls parseTraining() to extract steps, activity, and duration.
+//   - Logs parsing errors using log.Println(err) and returns "Error" with the error.
+//   - Calculates distance, average speed, and calories based on activity type
+//     (Walking or Running).
+//   - Returns an error if the activity type is unknown.
 func TrainingInfo(data string, weight, height float64) (string, error) {
 	var calories float64
 	var errCal error
