@@ -57,6 +57,17 @@ func TrainingInfo(data string, weight, height float64) (string, error) {
 	// TODO: реализовать функцию
 }
 
+// RunningSpentCalories calculates calories burned during running.
+// 
+// It takes the following parameters:
+//   steps int       — number of steps taken
+//   weight float64  — user's weight in kilograms
+//   height float64  — user's height in meters
+//   duration time.Duration — running duration
+//
+// It returns two values:
+//   float64 — calories burned during the run
+//   error   — non-nil if input parameters are invalid (e.g., non-positive steps, weight, height, or duration) 
 func RunningSpentCalories(steps int, weight, height float64, duration time.Duration) (float64, error) {
 	if steps <= 0 {
 		return 0, errors.New("steps must be positive")
