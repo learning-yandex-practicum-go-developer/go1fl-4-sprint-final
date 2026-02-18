@@ -95,7 +95,7 @@ func TrainingInfo(data string, weight, height float64) (string, error) {
 	steps, activity, duration, err := parseTraining(data)
 	if err != nil {
 		log.Println(err)
-		return "Error", err
+		return "", err
 	}
 
 	distance := distance(steps, height)
@@ -107,12 +107,12 @@ func TrainingInfo(data string, weight, height float64) (string, error) {
 	case "Бег":
 		calories, errCal = RunningSpentCalories(steps, weight, height, duration)
 	default:
-		return "Error", errors.New("неизвестный тип тренировки")
+		return "", errors.New("неизвестный тип тренировки")
 	}
 
 	if errCal != nil {
 		log.Println(errCal)
-		return "Error", errCal
+		return "", errCal
 	}
 
 	return fmt.Sprintf(
