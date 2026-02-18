@@ -39,7 +39,10 @@ func parseTraining(data string) (int, string, time.Duration, error) {
 }
 
 func distance(steps int, height float64) float64 {
-	// TODO: реализовать функцию
+	lenStep := height * stepLengthCoefficient
+	distance := (float64(steps) * lenStep) / mInKm
+
+	return distance
 }
 
 func meanSpeed(steps int, height float64, duration time.Duration) float64 {
